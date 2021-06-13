@@ -138,8 +138,9 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         
         session.commitConfiguration()
         
-        (view as? PreviewView)?.sessionLayer?.session = session
-        
+        let view = (view as? PreviewView)
+        view?.sessionLayer?.session = session
+        view?.sessionLayer?.videoGravity = .resizeAspectFill
         session.startRunning()
     }
 }
