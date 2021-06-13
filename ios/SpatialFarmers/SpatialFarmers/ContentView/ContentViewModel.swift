@@ -83,8 +83,11 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
     }
     
     func actionSheet() {
-        guard let image = controller?.currentFrame else { return }
-        let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        guard let image = controller?.currentFrame,
+              let watermark = UIImage(named: "watermark"),
+              let watermarked = image.watermarked(watermark)
+        else { return }
+        let av = UIActivityViewController(activityItems: [watermarked], applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
     }
     
@@ -106,4 +109,25 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
         objectWillChange.send()
     }
     
+}
+
+extension UIImage {
+    func watermarked(_ watermarkImage: UIImage) -> UIImage? {
+        let backgroundImage = self
+
+        let size = backgroundImage.size
+        let scale = backgroundImage.scale
+        let watermarkScale = 0.5
+        let watermarkWidth = watermarkImage.size.width * watermarkScale
+        let watermarkHeight = watermarkImage.size.height * watermarkScale
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        
+        backgroundImage.draw(in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
+        watermarkImage.draw(in: CGRect(x: size.width / 2 - watermarkWidth / 2, y: size.height - watermarkHeight - 40, width: watermarkWidth, height: watermarkHeight))
+
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
 }
