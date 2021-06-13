@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import Vision
+import CoreHaptics
 
 final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVSpeechSynthesizerDelegate {
     
@@ -55,17 +56,35 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
            let averageConfidence = observedResults.map { Float($0.confidence) }.reduce(.zero, +) / Float(observedResults.count)
            let readText = observedResults.map { $0.string }.joined(separator: " ")
            
-//            guard averageConfidence > 0.8 else { return }
            DispatchQueue.main.async {
                
                self.confiidenceLabel.text = "\(averageConfidence)"
                self.contentLabe.text = readText
-               let speechUtterance = AVSpeechUtterance(string: readText)
-               self.speechSynthesizer.delegate = self
-               speechUtterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
-               self.isTalking = true
-               self.speechSynthesizer.speak(speechUtterance)
+               switch averageConfidence {
+               case 0..<0.40:
+                   UIImpactFeedbackGenerator(style: .light)
+                       .impactOccurred()
+               case 0.40..<0.60:
+                   UIImpactFeedbackGenerator(style: .soft)
+                       .impactOccurred()
+               case 0.60..<0.80:
+                   UIImpactFeedbackGenerator(style: .medium)
+                       .impactOccurred()
+               case 0.80..<1:
+                   UIImpactFeedbackGenerator(style: .heavy)
+                       .impactOccurred()
+               default: break
+               }
+               self.say(sentence: readText)
            }
+    }
+    
+    private func say(sentence: String) {
+           let speechUtterance = AVSpeechUtterance(string: sentence)
+           self.speechSynthesizer.delegate = self
+           speechUtterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
+           self.isTalking = true
+           self.speechSynthesizer.speak(speechUtterance)
     }
     
     private func handleNewFrame(using buffer: CMSampleBuffer) {
