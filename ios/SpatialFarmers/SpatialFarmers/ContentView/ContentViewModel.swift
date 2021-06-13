@@ -14,12 +14,17 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
     @Published var transcribedText: String = ""
     @Published var isTalking = false
     @Published var isFlashlightOn = false
+    @Published var isPickingImage = false
     
     // MARK: - Properties
     
     var controller: ViewController?
+    var shouldEmmitHapitic = true {
+        didSet { controller?.shouldEmmitHaptic = shouldEmmitHapitic }
+    }
     
     // MARK: - Communication methods
+    
     func handleButtonTapped() {
         isFrozen = true
         controller?.handleButtonTapped()
@@ -80,6 +85,18 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
         objectWillChange.send()
     }
     
+    func handlePickImage() {
+        shouldEmmitHapitic = false
+        isPickingImage = true
+        objectWillChange.send()
+    }
+    
+    func handleCancelImagePick() {
+        shouldEmmitHapitic = true
+        isPickingImage = false
+        objectWillChange.send()
+    }
+    
     func say(sentence: String) {
         let speechUtterance = AVSpeechUtterance(string: sentence)
         speechUtterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
@@ -87,15 +104,6 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
         isTalking = true
         speechSynthesizer.speak(speechUtterance)
         objectWillChange.send()
-    }
-    
-    func actionSheet() {
-        guard let image = controller?.currentFrame,
-              let watermark = UIImage(named: "watermark"),
-              let watermarked = image.watermarked(watermark)
-        else { return }
-        let av = UIActivityViewController(activityItems: [watermarked], applicationActivities: nil)
-        UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
     }
     
     // MARK: - Delegate methods
@@ -116,6 +124,14 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
         objectWillChange.send()
     }
     
+    private func actionSheet() {
+        guard let image = controller?.currentFrame,
+              let watermark = UIImage(named: "watermark"),
+              let watermarked = image.watermarked(watermark)
+        else { return }
+        let av = UIActivityViewController(activityItems: [watermarked], applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+    }
 }
 
 extension UIImage {

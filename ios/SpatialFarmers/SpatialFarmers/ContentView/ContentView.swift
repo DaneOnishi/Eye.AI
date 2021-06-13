@@ -4,6 +4,8 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ContentViewModel = .init()
     
+    @State var isPresentingActionSheet = false
+    
     var body: some View {
         ZStack {
             cameraView
@@ -14,6 +16,16 @@ struct ContentView: View {
             }
         }
         .edgesIgnoringSafeArea([.top, .bottom])
+        .actionSheet(isPresented: $viewModel.isPickingImage) {
+            ActionSheet(title: Text("Select a source to pick an image from"), message: nil, buttons: [
+                .default(Text("Gallery")),
+                .default(Text("Import Image")),
+                .cancel(viewModel.handleCancelImagePick)
+            ])
+        }
+        .onAppear {
+            print("Salve muleke")
+        }
     }
     
     private var cameraView: some View {
@@ -23,11 +35,11 @@ struct ContentView: View {
     private var hudView: some View {
         VStack {
             toolbar
-                .background(Color.black.opacity(0.3))
+                .background(.ultraThinMaterial)
             Spacer()
         
             HStack {
-                Button(action: {}) {
+                Button(action: viewModel.handlePickImage) {
                     Image(systemName: "photo.fill")
                         .resizable()
                         .aspectRatio(4/3, contentMode: .fit)
@@ -48,7 +60,7 @@ struct ContentView: View {
             }
             .padding(.horizontal, 50)
             .padding(.vertical, 48)
-            .background(Color.black.opacity(0.3))
+            .background(.ultraThinMaterial)
         }
     }
     
