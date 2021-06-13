@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF094B81267638AC00580D4B /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF094B80267638AC00580D4B /* ConfigView.swift */; };
+		AFD9DF7026765AEE009D0984 /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD9DF6F26765AEE009D0984 /* ConfigView.swift */; };
 		D7020C5F26755D27000D09F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7020C5E26755D27000D09F6 /* AppDelegate.swift */; };
 		D7020C6126755D27000D09F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7020C6026755D27000D09F6 /* SceneDelegate.swift */; };
 		D7020C6326755D27000D09F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7020C6226755D27000D09F6 /* ViewController.swift */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AF094B80267638AC00580D4B /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
+		AFD9DF6F26765AEE009D0984 /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
 		D7020C5B26755D27000D09F6 /* SpatialFarmers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpatialFarmers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7020C5E26755D27000D09F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7020C6026755D27000D09F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 				D7020C6926755D29000D09F6 /* LaunchScreen.storyboard */,
 				D7020C6C26755D29000D09F6 /* Info.plist */,
 				D7E7888B2675B49800695D28 /* ContentView.swift */,
-				AF094B80267638AC00580D4B /* ConfigView.swift */,
+				AFD9DF6F26765AEE009D0984 /* ConfigView.swift */,
 			);
 			path = SpatialFarmers;
 			sourceTree = "<group>";
@@ -145,7 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7020C6326755D27000D09F6 /* ViewController.swift in Sources */,
-				AF094B81267638AC00580D4B /* ConfigView.swift in Sources */,
+				AFD9DF7026765AEE009D0984 /* ConfigView.swift in Sources */,
 				D7020C5F26755D27000D09F6 /* AppDelegate.swift in Sources */,
 				D7E7888C2675B49800695D28 /* ContentView.swift in Sources */,
 				D7020C6126755D27000D09F6 /* SceneDelegate.swift in Sources */,
