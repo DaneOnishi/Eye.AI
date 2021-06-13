@@ -13,6 +13,7 @@
 		D7020C6626755D27000D09F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7020C6426755D27000D09F6 /* Main.storyboard */; };
 		D7020C6826755D29000D09F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7020C6726755D29000D09F6 /* Assets.xcassets */; };
 		D7020C6B26755D29000D09F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7020C6926755D29000D09F6 /* LaunchScreen.storyboard */; };
+		D7E7888C2675B49800695D28 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E7888B2675B49800695D28 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D7020C6726755D29000D09F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7020C6A26755D29000D09F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7020C6C26755D29000D09F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D7E7888B2675B49800695D28 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				D7020C6726755D29000D09F6 /* Assets.xcassets */,
 				D7020C6926755D29000D09F6 /* LaunchScreen.storyboard */,
 				D7020C6C26755D29000D09F6 /* Info.plist */,
+				D7E7888B2675B49800695D28 /* ContentView.swift */,
 			);
 			path = SpatialFarmers;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			files = (
 				D7020C6326755D27000D09F6 /* ViewController.swift in Sources */,
 				D7020C5F26755D27000D09F6 /* AppDelegate.swift in Sources */,
+				D7E7888C2675B49800695D28 /* ContentView.swift in Sources */,
 				D7020C6126755D27000D09F6 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,7 +293,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 38NCR48QFB;
+				DEVELOPMENT_TEAM = QM43B7QRF9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SpatialFarmers/Info.plist;
 				INFOPLIST_KEY_CFBundleExecutable = SpatialFarmers;
@@ -323,7 +327,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 38NCR48QFB;
+				DEVELOPMENT_TEAM = QM43B7QRF9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SpatialFarmers/Info.plist;
 				INFOPLIST_KEY_CFBundleExecutable = SpatialFarmers;
