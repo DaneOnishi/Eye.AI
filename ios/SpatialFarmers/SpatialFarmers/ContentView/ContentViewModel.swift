@@ -15,6 +15,7 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
     @Published var isTalking = false
     @Published var isFlashlightOn = false
     @Published var isPickingImage = false
+    @Published var isShowingConfig = false
     
     // MARK: - Properties
     
@@ -88,6 +89,18 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
     func handlePickImage() {
         shouldEmmitHapitic = false
         isPickingImage = true
+        objectWillChange.send()
+    }
+    
+    func handleOpenSettings() {
+        shouldEmmitHapitic = false
+        isShowingConfig = true
+        objectWillChange.send()
+    }
+    
+    func handleDismissSettings() {
+        shouldEmmitHapitic = true
+        isShowingConfig = false
         objectWillChange.send()
     }
     

@@ -4,22 +4,35 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ContentViewModel = .init()
     
+    
     var body: some View {
-        ZStack {
-            cameraView
-            hudView
-            VStack {
-                Spacer()
-                transcribedText
+        NavigationView {
+            ZStack {
+                cameraView
+                hudView
+                VStack {
+                    Spacer()
+                    transcribedText
+                }
             }
+            .navigationBarHidden(true)
+            .edgesIgnoringSafeArea([.top, .bottom])
         }
-        .edgesIgnoringSafeArea([.top, .bottom])
+        .onAppear {
+            print("Salve")
+        }
+        .onDisappear {
+            print("qweqew")
+        }
         .actionSheet(isPresented: $viewModel.isPickingImage) {
             ActionSheet(title: Text("Select a source to pick an image from"), message: nil, buttons: [
                 .default(Text("Gallery")),
                 .default(Text("Import Image")),
                 .cancel(viewModel.handleCancelImagePick)
             ])
+        }
+        .sheet(isPresented: $viewModel.isShowingConfig) {
+            ConfigView(doneHandler: viewModel.handleDismissSettings)
         }
     }
     
@@ -49,7 +62,7 @@ struct ContentView: View {
                     Image(systemName: "bolt.fill")
                         .resizable()
                         .aspectRatio(16.87/30, contentMode: .fit)
-                        .frame(width: 44, height: 44)
+                        .frame(width: 40, height: 40)
                         .foregroundColor(viewModel.isFlashlightOn ? .yellow : .white)
                 }
             }
@@ -71,14 +84,14 @@ struct ContentView: View {
                 .padding(.leading)
                 .disabled(!viewModel.isFrozen)
             Spacer()
-            Button(action: {}, label: {
+            Button(action: viewModel.handleOpenSettings) {
                 Image(systemName: "gearshape.fill")
                     .resizable()
                     .foregroundColor(.white)
                     .frame(width: 30, height: 30)
                     
-            })
-                .frame(width: 44, height: 44)
+            }
+            .frame(width: 44, height: 44)
         }
         .padding(.horizontal, 32)
         .padding(.top, 52)
