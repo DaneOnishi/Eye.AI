@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AFB860C326766FA3004D5386 /* LanguagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB860C226766FA3004D5386 /* LanguagesView.swift */; };
 		AFD9DF7026765AEE009D0984 /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD9DF6F26765AEE009D0984 /* ConfigView.swift */; };
 		AFD9DF7226766024009D0984 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD9DF7126766024009D0984 /* ContentView.swift */; };
 		D7020C5F26755D27000D09F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7020C5E26755D27000D09F6 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AFB860C226766FA3004D5386 /* LanguagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesView.swift; sourceTree = "<group>"; };
 		AFD9DF6F26765AEE009D0984 /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
 		AFD9DF7126766024009D0984 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D7020C5B26755D27000D09F6 /* SpatialFarmers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpatialFarmers.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +75,7 @@
 				D7020C6726755D29000D09F6 /* Assets.xcassets */,
 				D7020C6C26755D29000D09F6 /* Info.plist */,
 				AFD9DF6F26765AEE009D0984 /* ConfigView.swift */,
+				AFB860C226766FA3004D5386 /* LanguagesView.swift */,
 			);
 			path = SpatialFarmers;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				D7020C6326755D27000D09F6 /* ViewController.swift in Sources */,
 				AFD9DF7026765AEE009D0984 /* ConfigView.swift in Sources */,
 				AFD9DF7226766024009D0984 /* ContentView.swift in Sources */,
+				AFB860C326766FA3004D5386 /* LanguagesView.swift in Sources */,
 				D72D74DC26763D7000F06EF4 /* RoundedButton.swift in Sources */,
 				D7020C5F26755D27000D09F6 /* AppDelegate.swift in Sources */,
 				D72D74DE26764BE300F06EF4 /* ContentViewModel.swift in Sources */,

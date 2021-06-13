@@ -4,16 +4,21 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ContentViewModel = .init()
     
+    @State var isShowingConfig = false
+    
     var body: some View {
-        ZStack {
-            cameraView
-            hudView
-            VStack {
-                Spacer()
-                transcribedText
+        NavigationView {
+            ZStack {
+                cameraView
+                hudView
+                VStack {
+                    Spacer()
+                    transcribedText
+                }
             }
+            .navigationBarHidden(true)
+            .edgesIgnoringSafeArea([.top, .bottom])
         }
-        .edgesIgnoringSafeArea([.top, .bottom])
     }
     
     private var cameraView: some View {
@@ -43,7 +48,7 @@ struct ContentView: View {
                     Image(systemName: "bolt.fill")
                         .resizable()
                         .aspectRatio(16.87/30, contentMode: .fit)
-                        .frame(width: 44, height: 44)
+                        .frame(width: 40, height: 40)
                         .foregroundColor(viewModel.isFlashlightOn ? .yellow : .white)
                 }
             }
@@ -65,11 +70,15 @@ struct ContentView: View {
                 .padding(.leading)
                 .disabled(!viewModel.isFrozen)
             Spacer()
-            Button(action: {}, label: {
+            Button(action: {isShowingConfig.toggle()}) {
                 Image(systemName: "gearshape.fill")
                     .resizable()
-                    .frame(width: 44, height: 44)
-            } )
+                    .frame(width: 40, height: 40)
+                    .foregroundColor(.white)
+            }
+            .sheet(isPresented: $isShowingConfig) {
+                ConfigView(isShowingConfig: self.$isShowingConfig)
+            }
         }
         .padding(.horizontal, 32)
         .padding(.vertical, 13)
