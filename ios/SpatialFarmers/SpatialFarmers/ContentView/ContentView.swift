@@ -1,17 +1,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var viewModel: ContentViewModel = .init()
+    
     var body: some View {
         ZStack {
             cameraView
             hudView
+            VStack {
+                Spacer()
+                transcribedText
+            }
         }
         .edgesIgnoringSafeArea([.top, .bottom])
     }
     
     private var cameraView: some View {
-        Rectangle()
-                .fill(Color.orange)
+        DetectorView(viewModel: viewModel)
     }
     
     private var hudView: some View {
@@ -30,7 +36,7 @@ struct ContentView: View {
                         .foregroundColor(.white)
                 }
                 Spacer()
-                Button(action: {}, label: { Image("camerabutton") } )
+                Button(action:  viewModel.handleButtonTapped, label: { Image("camerabutton") } )
                     .frame(width: 75, height: 75)
                 Spacer()
                 Button(action: {}) {
@@ -52,12 +58,12 @@ struct ContentView: View {
             Image("eyeailogo")
                 .frame(width: 32, height: 32)
             Spacer()
-            RoundedButton(action: {}, imageName: "play.fill")
+            RoundedButton(action: viewModel.handlePlay, imageName: viewModel.isTalking ? "pause.fill" : "play.fill")
                 .padding(.leading)
-                .disabled(true)
+                .disabled(!viewModel.isFrozen)
             RoundedButton(action: {}, imageName: "square.and.arrow.up")
                 .padding(.leading)
-                .disabled(true)
+                .disabled(!viewModel.isFrozen)
             Spacer()
             Button(action: {}, label: {
                 Image(systemName: "gearshape.fill")
@@ -68,26 +74,32 @@ struct ContentView: View {
         .padding(.horizontal, 32)
         .padding(.vertical, 13)
     }
-}
-struct RoundedButton: View {
     
-    var action: () -> Void
-    var imageName: String
-    
-    var body: some View {
-        Button(action: action) {
-            Image(systemName: imageName)
-                .resizable()
-                .aspectRatio(12.55/14.12, contentMode: .fit)
-                .frame(height: 20)
+    private var transcribedText: some View {
+        HStack {
+            Spacer()
+            VStack {
+                Rectangle()
+                    .fill(Color.gray)
+                    .frame(width: 33, height: 3)
+                    .padding(.top, 16)
+                ScrollView {
+                    Text(viewModel.transcribedText)
+                        .foregroundColor(.white)
+                        .padding(.top, 16)
+                        .padding(.bottom, 40)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxHeight: 500)
+            }
+            Spacer()
         }
-        .frame(width: 44, height: 44)
-        .background(backgroundView)
-    }
-    
-    private var backgroundView: some View {
-        Circle()
-            .fill(Color(white: 1).opacity(0.2))
+        .background(Color.black.opacity(0.7))
+        .offset(viewModel.offset)
+        .gesture(DragGesture()
+                    .onChanged(viewModel.onDragChanged)
+                    .onEnded(viewModel.onDragEnded)
+        )
     }
 }
 

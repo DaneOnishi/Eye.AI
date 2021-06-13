@@ -12,20 +12,18 @@ import CoreHaptics
 
 final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVSpeechSynthesizerDelegate {
     
-    // MARK: - UI Elements
-    
-    @IBOutlet weak var debugImage: UIImageView!
-    @IBOutlet weak var contentLabe: UILabel!
-    @IBOutlet weak var confiidenceLabel: UILabel!
-    
     // MARK: - Properties
     
-    private let speechSynthesizer = AVSpeechSynthesizer()
     private let context = CIContext(options: nil)
     private var session: AVCaptureSession!
     private var device: AVCaptureDevice!
     
     private var isTalking: Bool = false
+    
+    weak var viewModel: ContentViewModel?
+    
+    var currentReadText: String?
+    var currentPrecision: Float?
     
     // MARK: - View lifecycle
     
@@ -34,11 +32,23 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         configureCaptureSession()
     }
     
-    // MARK: - Delegates
+    // MARK: - SwiftUI Communication
     
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        isTalking.toggle()
+    func handleButtonTapped() {
+        self.session.stopRunning()
+        if var text = currentReadText {
+            if currentPrecision ?? 0 < 0.5 {
+                text = "Aviso! A precisão está a baixo de 50%.\n\n\n" + text
+            }
+            viewModel?.presentTranscribedView(using: text)
+        }
     }
+    
+    func startSession() {
+        session.startRunning()
+    }
+    
+    // MARK: - Delegates
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         if isTalking { return }
@@ -48,43 +58,35 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     // MARK: - Provate methods
     
     private func handleRecognitionResult(request: VNRequest, error: Error?) {
-           guard let results = request.results,
-                 let observations = results as? [VNRecognizedTextObservation]
-           else { return }
-           let observedResults = observations.compactMap { $0.topCandidates(1).first }
-           
-           let averageConfidence = observedResults.map { Float($0.confidence) }.reduce(.zero, +) / Float(observedResults.count)
-           let readText = observedResults.map { $0.string }.joined(separator: " ")
-           
-           DispatchQueue.main.async {
-               
-               self.confiidenceLabel.text = "\(averageConfidence)"
-               self.contentLabe.text = readText
-               switch averageConfidence {
-               case 0..<0.40:
-                   UIImpactFeedbackGenerator(style: .light)
-                       .impactOccurred()
-               case 0.40..<0.60:
-                   UIImpactFeedbackGenerator(style: .soft)
-                       .impactOccurred()
-               case 0.60..<0.80:
-                   UIImpactFeedbackGenerator(style: .medium)
-                       .impactOccurred()
-               case 0.80..<1:
-                   UIImpactFeedbackGenerator(style: .heavy)
-                       .impactOccurred()
-               default: break
-               }
-               self.say(sentence: readText)
-           }
+        guard let results = request.results,
+              let observations = results as? [VNRecognizedTextObservation]
+        else { return }
+        
+        let observedResults = observations.compactMap { $0.topCandidates(1).first }
+        let averageConfidence = observedResults.map { Float($0.confidence) }.reduce(.zero, +) / Float(observedResults.count)
+        let readText = observedResults.map { $0.string }.joined(separator: "\n")
+        
+        currentPrecision = averageConfidence
+        currentReadText = readText
+        generateImpact(basedOn: averageConfidence)
     }
     
-    private func say(sentence: String) {
-           let speechUtterance = AVSpeechUtterance(string: sentence)
-           self.speechSynthesizer.delegate = self
-           speechUtterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
-           self.isTalking = true
-           self.speechSynthesizer.speak(speechUtterance)
+    private func generateImpact(basedOn confidence: Float) {
+            switch confidence {
+            case 0..<0.40:
+                UIImpactFeedbackGenerator(style: .light)
+                    .impactOccurred()
+            case 0.40..<0.60:
+                UIImpactFeedbackGenerator(style: .soft)
+                    .impactOccurred()
+            case 0.60..<0.80:
+                UIImpactFeedbackGenerator(style: .medium)
+                    .impactOccurred()
+            case 0.80..<1:
+                UIImpactFeedbackGenerator(style: .heavy)
+                    .impactOccurred()
+            default: break
+            }
     }
     
     private func handleNewFrame(using buffer: CMSampleBuffer) {
@@ -122,7 +124,6 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         if session.canAddOutput(videoOutput) {
             session.addOutput(videoOutput)
         }
-        
         
         session.commitConfiguration()
         
