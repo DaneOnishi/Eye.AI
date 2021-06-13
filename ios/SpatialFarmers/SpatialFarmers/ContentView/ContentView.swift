@@ -4,7 +4,6 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ContentViewModel = .init()
     
-    @State var isShowingConfig = false
     
     var body: some View {
         NavigationView {
@@ -19,6 +18,22 @@ struct ContentView: View {
             .navigationBarHidden(true)
             .edgesIgnoringSafeArea([.top, .bottom])
         }
+        .onAppear {
+            print("Salve")
+        }
+        .onDisappear {
+            print("qweqew")
+        }
+        .actionSheet(isPresented: $viewModel.isPickingImage) {
+            ActionSheet(title: Text("Select a source to pick an image from"), message: nil, buttons: [
+                .default(Text("Gallery")),
+                .default(Text("Import Image")),
+                .cancel(viewModel.handleCancelImagePick)
+            ])
+        }
+        .sheet(isPresented: $viewModel.isShowingConfig) {
+            ConfigView(doneHandler: viewModel.handleDismissSettings)
+        }
     }
     
     private var cameraView: some View {
@@ -28,12 +43,11 @@ struct ContentView: View {
     private var hudView: some View {
         VStack {
             toolbar
-                .frame(height: 100, alignment: .bottom)
-                .background(Color.black.opacity(0.3))
+                .background(.ultraThinMaterial)
             Spacer()
         
             HStack {
-                Button(action: {}) {
+                Button(action: viewModel.handlePickImage) {
                     Image(systemName: "photo.fill")
                         .resizable()
                         .aspectRatio(4/3, contentMode: .fit)
@@ -54,7 +68,7 @@ struct ContentView: View {
             }
             .padding(.horizontal, 50)
             .padding(.vertical, 48)
-            .background(Color.black.opacity(0.3))
+            .background(.ultraThinMaterial)
         }
     }
     
@@ -70,18 +84,18 @@ struct ContentView: View {
                 .padding(.leading)
                 .disabled(!viewModel.isFrozen)
             Spacer()
-            Button(action: {isShowingConfig.toggle()}) {
+            Button(action: viewModel.handleOpenSettings) {
                 Image(systemName: "gearshape.fill")
                     .resizable()
-                    .frame(width: 40, height: 40)
                     .foregroundColor(.white)
+                    .frame(width: 30, height: 30)
+                    
             }
-            .sheet(isPresented: $isShowingConfig) {
-                ConfigView(isShowingConfig: self.$isShowingConfig)
-            }
+            .frame(width: 44, height: 44)
         }
         .padding(.horizontal, 32)
-        .padding(.vertical, 13)
+        .padding(.top, 52)
+        .padding(.bottom, 20)
     }
     
     private var transcribedText: some View {

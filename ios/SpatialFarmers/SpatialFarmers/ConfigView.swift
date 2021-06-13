@@ -3,7 +3,7 @@ import Vision
 
 struct ConfigView: View {
     
-    @Binding var isShowingConfig: Bool
+    let doneHandler: () -> Void
     
     @State var qrCodeEnabled: Bool = false
     @State var saveGaleryEnabled: Bool = false
@@ -40,7 +40,7 @@ struct ConfigView: View {
             .listStyle(GroupedListStyle())
             .navigationBarHidden(false)
             .navigationBarTitle(Text("Settings"), displayMode: .inline)
-            .navigationBarItems(trailing: Text("Done"))
+            .navigationBarItems(trailing: Button(action: doneHandler, label: { Text("Done") }))
         }
     }
 }

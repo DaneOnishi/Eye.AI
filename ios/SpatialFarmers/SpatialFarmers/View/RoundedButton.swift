@@ -2,6 +2,8 @@ import SwiftUI
 
 struct RoundedButton: View {
     
+    @Environment(\.isEnabled) private var isEnabled: Bool
+    
     var action: () -> Void
     var imageName: String
     
@@ -12,8 +14,9 @@ struct RoundedButton: View {
                 .aspectRatio(12.55/14.12, contentMode: .fit)
                 .frame(height: 20)
         }
-        .frame(width: 44, height: 44)
+        .frame(width: 52, height: 52)
         .background(backgroundView)
+        .foregroundColor(isEnabled ? .white : .white.opacity(0.5))
     }
     
     private var backgroundView: some View {

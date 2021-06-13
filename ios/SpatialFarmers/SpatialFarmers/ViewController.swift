@@ -14,6 +14,8 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     private var isTalking: Bool = false
     private var isFlashlightOn = false
     
+    var shouldEmmitHaptic = true
+    
     weak var viewModel: ContentViewModel?
     
     var currentFrame: UIImage?
@@ -75,6 +77,7 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     }
     
     private func generateImpact(basedOn confidence: Float) {
+        guard shouldEmmitHaptic else { return }
             switch confidence {
             case 0..<0.40:
                 UIImpactFeedbackGenerator(style: .light)
