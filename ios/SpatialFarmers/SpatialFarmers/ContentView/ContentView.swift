@@ -4,8 +4,6 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ContentViewModel = .init()
     
-    @State var isPresentingActionSheet = false
-    
     var body: some View {
         ZStack {
             cameraView
@@ -22,9 +20,6 @@ struct ContentView: View {
                 .default(Text("Import Image")),
                 .cancel(viewModel.handleCancelImagePick)
             ])
-        }
-        .onAppear {
-            print("Salve muleke")
         }
     }
     
