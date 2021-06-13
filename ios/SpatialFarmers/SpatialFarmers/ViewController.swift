@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import Vision
 
-final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVSpeechSynthesizerDelegate {
     
     @IBOutlet weak var debugImage: UIImageView!
     @IBOutlet weak var contentLabe: UILabel!
@@ -19,7 +19,10 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     private var session: AVCaptureSession!
     private var device: AVCaptureDevice!
     
+    private var isTalking: Bool = false
+    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        if isTalking { return }
         handleNewFrame(using: sampleBuffer)
     }
     
@@ -52,10 +55,13 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     }
     
     
-    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        isTalking.toggle()
+    }
+    let speechSynthesizer = AVSpeechSynthesizer()
     private func handleNewFrame(using buffer: CMSampleBuffer) {
         let imageBuffer = CMSampleBufferGetImageBuffer(buffer)!
-        let ciimage = CIImage(cvPixelBuffer: imageBuffer)t.oriented(.right)
+        let ciimage = CIImage(cvPixelBuffer: imageBuffer).oriented(.right)
         let cgImage = context.createCGImage(ciimage, from: ciimage.extent)!
         let debugImage = UIImage(cgImage: cgImage)
         
@@ -76,13 +82,20 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                 
                 self.confiidenceLabel.text = "\(averageConfidence)"
                 self.contentLabe.text = readText
+                let speechUtterance = AVSpeechUtterance(string: readText)
+                self.speechSynthesizer.delegate = self
+                speechUtterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
+                self.isTalking = true
+                self.speechSynthesizer.speak(speechUtterance)
+                
+                
                 self.debugImage.image = debugImage
             }
             
         }
         
         request.usesLanguageCorrection = true
-        request.recognitionLevel = .fast
+        request.recognitionLevel = .accurate
         
         do {
             try requestHandler.perform([request])
