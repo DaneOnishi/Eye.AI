@@ -12,10 +12,11 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
     @Published var isFrozen: Bool = false
     @Published var offset: CGSize = ContentViewModel.dismissedOffset
     @Published var transcribedText: String = ""
+    @Published var isTalking = false
+    @Published var isFlashlightOn = false
     
     // MARK: - Properties
     
-    @Published var isTalking = false
     var controller: ViewController?
     
     // MARK: - Communication methods
@@ -71,6 +72,12 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
     
     func handleShare() {
         actionSheet()
+    }
+    
+    func handleFlashlight() {
+        controller?.toggleFlashlight()
+        isFlashlightOn.toggle()
+        objectWillChange.send()
     }
     
     func say(sentence: String) {

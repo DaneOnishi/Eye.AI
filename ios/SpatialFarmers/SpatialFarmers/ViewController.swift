@@ -1,10 +1,3 @@
- //
-//  ViewController.swift
-//  SpatialFarmers
-//
-//  Created by Bruno Pastre on 12/06/21.
-//
-
 import UIKit
 import AVFoundation
 import Vision
@@ -19,6 +12,7 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     private var device: AVCaptureDevice!
     
     private var isTalking: Bool = false
+    private var isFlashlightOn = false
     
     weak var viewModel: ContentViewModel?
     
@@ -31,6 +25,7 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCaptureSession()
+        configureFlashlight()
     }
     
     // MARK: - SwiftUI Communication
@@ -47,6 +42,13 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     
     func startSession() {
         session.startRunning()
+    }
+    
+    func toggleFlashlight() {
+        isFlashlightOn.toggle()
+        try? device.lockForConfiguration()
+        device.torchMode = isFlashlightOn ? .on : .off
+        device.unlockForConfiguration()
     }
     
     // MARK: - Delegates
@@ -107,6 +109,13 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         } catch {
             print("Unable to perform the requests: \(error).")
         }
+    }
+    
+    private func configureFlashlight() {
+        try? device.lockForConfiguration()
+        try? device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
+        device.torchMode = .off
+        device.unlockForConfiguration()
     }
     
     private func configureCaptureSession() {
