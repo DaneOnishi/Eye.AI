@@ -48,7 +48,8 @@ struct ContentView: View {
                 }
             }
             .padding(.horizontal, 50)
-            .padding(.vertical, 48)
+            .padding(.top, 48)
+            .padding(.bottom, 60)
             .background(Color.black.opacity(0.3))
         }
     }
