@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AFD9DF7026765AEE009D0984 /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD9DF6F26765AEE009D0984 /* ConfigView.swift */; };
+		AFD9DF7226766024009D0984 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD9DF7126766024009D0984 /* ContentView.swift */; };
 		D7020C5F26755D27000D09F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7020C5E26755D27000D09F6 /* AppDelegate.swift */; };
 		D7020C6126755D27000D09F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7020C6026755D27000D09F6 /* SceneDelegate.swift */; };
 		D7020C6326755D27000D09F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7020C6226755D27000D09F6 /* ViewController.swift */; };
@@ -16,10 +18,11 @@
 		D72D74DA2676397F00F06EF4 /* DetectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72D74D92676397F00F06EF4 /* DetectorView.swift */; };
 		D72D74DC26763D7000F06EF4 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72D74DB26763D7000F06EF4 /* RoundedButton.swift */; };
 		D72D74DE26764BE300F06EF4 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72D74DD26764BE300F06EF4 /* ContentViewModel.swift */; };
-		D7E7888C2675B49800695D28 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E7888B2675B49800695D28 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AFD9DF6F26765AEE009D0984 /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
+		AFD9DF7126766024009D0984 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D7020C5B26755D27000D09F6 /* SpatialFarmers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpatialFarmers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7020C5E26755D27000D09F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7020C6026755D27000D09F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,7 +34,6 @@
 		D72D74D92676397F00F06EF4 /* DetectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectorView.swift; sourceTree = "<group>"; };
 		D72D74DB26763D7000F06EF4 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		D72D74DD26764BE300F06EF4 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
-		D7E7888B2675B49800695D28 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				D7020C6226755D27000D09F6 /* ViewController.swift */,
 				D7020C6726755D29000D09F6 /* Assets.xcassets */,
 				D7020C6C26755D29000D09F6 /* Info.plist */,
+				AFD9DF6F26765AEE009D0984 /* ConfigView.swift */,
 			);
 			path = SpatialFarmers;
 			sourceTree = "<group>";
@@ -86,7 +89,7 @@
 		D72D74E02676556200F06EF4 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
-				D7E7888B2675B49800695D28 /* ContentView.swift */,
+				AFD9DF7126766024009D0984 /* ContentView.swift */,
 				D72D74DD26764BE300F06EF4 /* ContentViewModel.swift */,
 			);
 			path = ContentView;
@@ -175,11 +178,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7020C6326755D27000D09F6 /* ViewController.swift in Sources */,
+				AFD9DF7026765AEE009D0984 /* ConfigView.swift in Sources */,
+				AFD9DF7226766024009D0984 /* ContentView.swift in Sources */,
 				D72D74DC26763D7000F06EF4 /* RoundedButton.swift in Sources */,
 				D7020C5F26755D27000D09F6 /* AppDelegate.swift in Sources */,
 				D72D74DE26764BE300F06EF4 /* ContentViewModel.swift in Sources */,
 				D72D74DA2676397F00F06EF4 /* DetectorView.swift in Sources */,
-				D7E7888C2675B49800695D28 /* ContentView.swift in Sources */,
 				D7020C6126755D27000D09F6 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,7 +333,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QM43B7QRF9;
+				DEVELOPMENT_TEAM = 38NCR48QFB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SpatialFarmers/Info.plist;
 				INFOPLIST_KEY_CFBundleExecutable = SpatialFarmers;
@@ -342,7 +346,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,7 +367,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QM43B7QRF9;
+				DEVELOPMENT_TEAM = 38NCR48QFB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SpatialFarmers/Info.plist;
 				INFOPLIST_KEY_CFBundleExecutable = SpatialFarmers;
@@ -376,7 +380,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
