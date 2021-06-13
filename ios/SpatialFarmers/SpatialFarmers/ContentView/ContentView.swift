@@ -39,12 +39,12 @@ struct ContentView: View {
                 Button(action:  viewModel.handleButtonTapped, label: { Image("camerabutton") } )
                     .frame(width: 75, height: 75)
                 Spacer()
-                Button(action: {}) {
+                Button(action: viewModel.handleFlashlight) {
                     Image(systemName: "bolt.fill")
                         .resizable()
                         .aspectRatio(16.87/30, contentMode: .fit)
                         .frame(width: 44, height: 44)
-                        .foregroundColor(.white)
+                        .foregroundColor(viewModel.isFlashlightOn ? .yellow : .white)
                 }
             }
             .padding(.horizontal, 50)
