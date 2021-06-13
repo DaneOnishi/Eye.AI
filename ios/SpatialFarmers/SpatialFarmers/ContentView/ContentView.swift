@@ -23,7 +23,6 @@ struct ContentView: View {
     private var hudView: some View {
         VStack {
             toolbar
-                .frame(height: 100, alignment: .bottom)
                 .background(Color.black.opacity(0.3))
             Spacer()
         
@@ -48,8 +47,7 @@ struct ContentView: View {
                 }
             }
             .padding(.horizontal, 50)
-            .padding(.top, 48)
-            .padding(.bottom, 60)
+            .padding(.vertical, 48)
             .background(Color.black.opacity(0.3))
         }
     }
@@ -69,11 +67,15 @@ struct ContentView: View {
             Button(action: {}, label: {
                 Image(systemName: "gearshape.fill")
                     .resizable()
-                    .frame(width: 44, height: 44)
-            } )
+                    .foregroundColor(.white)
+                    .frame(width: 30, height: 30)
+                    
+            })
+                .frame(width: 44, height: 44)
         }
         .padding(.horizontal, 32)
-        .padding(.vertical, 13)
+        .padding(.top, 52)
+        .padding(.bottom, 20)
     }
     
     private var transcribedText: some View {
