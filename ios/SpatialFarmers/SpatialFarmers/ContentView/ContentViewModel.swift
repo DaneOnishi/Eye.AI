@@ -69,6 +69,25 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
         }
     }
     
+    func handleShare() {
+        actionSheet()
+    }
+    
+    func say(sentence: String) {
+        let speechUtterance = AVSpeechUtterance(string: sentence)
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
+        speechSynthesizer.delegate = self
+        isTalking = true
+        speechSynthesizer.speak(speechUtterance)
+        objectWillChange.send()
+    }
+    
+    func actionSheet() {
+        guard let image = controller?.currentFrame else { return }
+        let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+    }
+    
     // MARK: - Delegate methods
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
@@ -87,12 +106,4 @@ final class ContentViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDel
         objectWillChange.send()
     }
     
-    func say(sentence: String) {
-        let speechUtterance = AVSpeechUtterance(string: sentence)
-        speechUtterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
-        speechSynthesizer.delegate = self
-        isTalking = true
-        speechSynthesizer.speak(speechUtterance)
-        objectWillChange.send()
-    }
 }

@@ -22,6 +22,7 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     
     weak var viewModel: ContentViewModel?
     
+    var currentFrame: UIImage?
     var currentReadText: String?
     var currentPrecision: Float?
     
@@ -93,12 +94,13 @@ final class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         let imageBuffer = CMSampleBufferGetImageBuffer(buffer)!
         let ciimage = CIImage(cvPixelBuffer: imageBuffer).oriented(.right)
         let cgImage = context.createCGImage(ciimage, from: ciimage.extent)!
-        
         let requestHandler = VNImageRequestHandler(cgImage: cgImage)
         let request = VNRecognizeTextRequest(completionHandler: handleRecognitionResult)
         
         request.usesLanguageCorrection = true
         request.recognitionLevel = .accurate
+        
+        currentFrame = UIImage(cgImage: cgImage)
         
         do {
             try requestHandler.perform([request])

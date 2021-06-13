@@ -61,7 +61,7 @@ struct ContentView: View {
             RoundedButton(action: viewModel.handlePlay, imageName: viewModel.isTalking ? "pause.fill" : "play.fill")
                 .padding(.leading)
                 .disabled(!viewModel.isFrozen)
-            RoundedButton(action: {}, imageName: "square.and.arrow.up")
+            RoundedButton(action: viewModel.handleShare, imageName: "square.and.arrow.up")
                 .padding(.leading)
                 .disabled(!viewModel.isFrozen)
             Spacer()
